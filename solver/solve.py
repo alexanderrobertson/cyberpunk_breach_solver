@@ -42,7 +42,7 @@ def check_solution(graph, target_paths, path):
                 if t[0] == point:
                     target_paths_copy[e] = t[1:]
 
-    return [False if t else True for t in target_paths_copy]
+    return [False if len(t) else True for t in target_paths_copy]
 
 def score_solutions(graph, target_paths, solutions):
     best = dict(path=None, score=0)
@@ -55,14 +55,14 @@ def score_solutions(graph, target_paths, solutions):
             best['path'] = p
             best['score'] = score
             best['sequence'] = path_to_sequence(graph, p)
-            best['matched'] = [e for e, m in enumerate(matches, 1) if e]
+            best['matched'] = [e for e, m in enumerate(matches, 1) if m]
             break
 
         if score > best['score']:
             best['path'] = p
             best['score'] = score
             best['sequence'] = path_to_sequence(graph, p)
-            best['matched'] = [e for e, m in enumerate(matches, 1) if e]
+            best['matched'] = [e for e, m in enumerate(matches, 1) if m]
 
     if best['path']:
         return best
@@ -74,8 +74,6 @@ def solve(puzzle):
     all_paths = []
 
     start_points = [(0, x) for x in range(puzzle.grid_shape)]
-
-    # print(start_points)
 
     for start_point in start_points:
         paths = find_paths(puzzle.graph,

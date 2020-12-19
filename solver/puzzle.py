@@ -10,7 +10,7 @@ class Puzzle:
         self.characters = valid_chars
         self.char_map = {c[0].lower(): c for c in self.characters}
 
-        self.buffer_size = 4
+        self.buffer_size = buffer_size
 
         self.grid_string = [self.char_map[c] for c in self.validate_string(grid_string)]
 
