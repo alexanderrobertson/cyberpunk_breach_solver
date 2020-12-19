@@ -41,9 +41,6 @@ class Puzzle:
         return tl
 
     def string_to_array(self, gs):
-        # The grid string goes from left to right, top to bottom
-        # But coordinates in matplotlib start at bottom left
-        # Grid looks wrong when plotted...
         grid = np.reshape(gs, (self.grid_shape, self.grid_shape))
         return grid
 
@@ -61,12 +58,9 @@ class Puzzle:
         g = nx.Graph()
         g.add_nodes_from(nodes)
 
-        # node_labels= {n: self.grid_string[e] for e, n in enumerate(g.nodes)}
-
         node_labels = {n: self.grid_as_array[n] for n in g.nodes}
 
         nx.set_node_attributes(g, node_labels, 'label')
-        # nx.set_node_attributes(g, nodes, 'position')
 
         for node, e_l in edges.items():
             g.add_edges_from([(node, e) for e in e_l])

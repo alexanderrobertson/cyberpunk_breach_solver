@@ -17,14 +17,17 @@ t4 = '151 1b b1b'
 
 
 
-for g, t in [(g1, t1), (g2, t2), (g3, t3), (g4, t4)]:
-    puzzle = Puzzle(g, t, buffer_size=8)
+for g, t in [(g1, t1), (g2, t2)]:
+    puzzle = Puzzle(g, t, buffer_size=4)
 
     print(puzzle)
 
-    try:
-        print(puzzle.solution['score'])
-    except:
-        print('No score')
+    print('='*50)
+
+
+for g, t in [(g3, t3), (g4, t4)]:
+    puzzle = Puzzle(g, t, buffer_size=8)
+
+    print(puzzle)
 
     print('='*50)
