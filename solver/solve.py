@@ -1,3 +1,4 @@
+import dill
 
 
 def find_paths(G, node, length):
@@ -71,16 +72,23 @@ def score_solutions(graph, target_paths, solutions):
 
 def solve(puzzle):
 
-    all_paths = []
+    if puzzle.grid_shape == 5:
 
-    start_points = [(0, x) for x in range(puzzle.grid_shape)]
+        with open(f'data/{puzzle.buffer_size}.dill', 'rb') as fp:
+            all_paths = dill.load(fp)
+        all_paths = filter_found_paths(all_paths)
 
-    for start_point in start_points:
-        paths = find_paths(puzzle.graph,
-                           start_point,
-                           puzzle.buffer_size - 1)
+    else:
+        all_paths = []
 
-        all_paths.extend(filter_found_paths(paths))
+        start_points = [(0, x) for x in range(puzzle.grid_shape)]
+
+        for start_point in start_points:
+            paths = find_paths(puzzle.graph,
+                               start_point,
+                               puzzle.buffer_size - 1)
+
+            all_paths.extend(filter_found_paths(paths))
 
     return score_solutions(puzzle.graph, puzzle.targets, all_paths)
 
