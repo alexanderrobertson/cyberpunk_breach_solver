@@ -14,16 +14,20 @@ def find_paths(G, node, length):
 
 def evaluate_path(path):
     for e, ((x1, y1), (x2, y2)) in enumerate(zip(path, path[1:]), 1):
-        if e % 2 == 1:
-            if x1 != x2:
-                return False
-            if y1 == y2:
-                return False
-        else:
+        if e == 1:
             if x1 == x2:
                 return False
-            if y1 != y2:
-                return False
+        else:
+            if e % 2 == 1:
+                if x1 != x2:
+                    return False
+                if y1 == y2:
+                    return False
+            else:
+                if x1 == x2:
+                    return False
+                if y1 != y2:
+                    return False
     return True
 
 def filter_found_paths(paths):
@@ -76,6 +80,7 @@ def solve(puzzle):
 
         with open(f'data/{puzzle.buffer_size}.dill', 'rb') as fp:
             all_paths = dill.load(fp)
+            print(len(all_paths))
         all_paths = filter_found_paths(all_paths)
 
     else:
