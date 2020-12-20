@@ -37,7 +37,11 @@ if __name__ == '__main__':
 
             possible_paths = find_paths(graph, start_point, b-1)
 
+            print('\t\tPossible paths: ', len(possible_paths))
+
             possible_paths = filter_found_paths(possible_paths)
+
+            print('\t\t\tValid paths: ', len(possible_paths))
 
             data.extend(possible_paths)
 
