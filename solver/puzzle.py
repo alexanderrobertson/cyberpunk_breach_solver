@@ -87,9 +87,12 @@ class Puzzle:
         if display:
             plt.show()
 
+        plt.tight_layout()
+
         return fig
 
-    def plot_solultion(self, display=True):
+    def plot_solution(self, display=True):
+
         pass
 
     def __repr__(self):

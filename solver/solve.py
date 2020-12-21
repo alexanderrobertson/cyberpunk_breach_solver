@@ -1,5 +1,6 @@
 import dill
 
+from pathlib import Path
 
 def find_paths(G, node, length):
     '''
@@ -79,7 +80,12 @@ def solve(puzzle):
 
     if puzzle.grid_shape == 5:
 
-        with open(f'data/{puzzle.buffer_size}.dill', 'rb') as fp:
+        try:
+            fp = Path(f'solver/data/{puzzle.buffer_size}.dill')
+        except FileNotFoundError:
+            fp = Path(f'data/{puzzle.buffer_size}.dill')
+
+        with open(fp, 'rb') as fp:
             all_paths = dill.load(fp)
         all_paths = filter_found_paths(all_paths)
 
