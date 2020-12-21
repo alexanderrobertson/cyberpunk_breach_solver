@@ -96,7 +96,12 @@ class Puzzle:
         g = '\n\t'.join([' '.join(v for v in r) for r in self.grid_as_array])
         t = '\n\t'.join([' '.join(v for v in r) for r in self.targets])
         if self.solution:
-            s = f'\tStart at item {self.solution["path"][0][1]+1} in top row\n\tFull path:{self.solution["path"]}\n\tSequence:{self.solution["sequence"]}\n\tMatched:{self.solution["matched"]}'
+            sp = self.solution["path"][0][1]+1
+            fp = self.solution["path"]
+            seq = self.solution["sequence"]
+            hp = [f"{p}:{x+1}-{y+1}" for p, (x,y) in zip(seq, self.solution["path"])]
+            m = self.solution["matched"]
+            s = f'\tStart at item {sp} in top row\n\tFull path:{fp}\n\tHuman path:{hp}\n\tSequence:{seq}\n\tMatched:{m}'
         else:
             s = '\tNo solution possible.'
         return f"Grid with shape {self.grid_shape}x{self.grid_shape}:\n\t{g}\nTargets:\n\t{t}\nSolution:\n{s}"

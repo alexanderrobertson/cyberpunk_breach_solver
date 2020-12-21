@@ -18,13 +18,6 @@ g5 = '5e1551b111b511e51511e5be1'
 t5 = '15b 5b1 be5'
 
 
-for g, t in [(g5, t5)]:
-    puzzle = Puzzle(g, t, buffer_size=4)
-
-    print(puzzle)
-
-    print('='*50)
-
 for g, t in [(g1, t1), (g2, t2)]:
     puzzle = Puzzle(g, t, buffer_size=4)
 
@@ -35,6 +28,13 @@ for g, t in [(g1, t1), (g2, t2)]:
 
 for g, t in [(g3, t3), (g4, t4)]:
     puzzle = Puzzle(g, t, buffer_size=4)
+
+    print(puzzle)
+
+    print('='*50)
+
+for g, t in [(g5, t5)]:
+    puzzle = Puzzle(g, t, buffer_size=6)
 
     print(puzzle)
 
