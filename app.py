@@ -7,8 +7,7 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 app = flask.Flask(__name__)
 
-app.add_url_rule('/data/<path:filename>', endpoint='solver', build_only=True)
-
+server = app.server
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
