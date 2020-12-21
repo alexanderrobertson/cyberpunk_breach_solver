@@ -55,7 +55,7 @@ def score_solutions(graph, target_paths, solutions):
 
     for p in solutions:
         matches = check_solution(graph, target_paths, p)
-        score = sum([m * w for m, w in zip(matches, [1, 2, 3])])
+        score = sum([m * w for m, w in zip(matches, [1, 2, 4])])
 
         if score == 6:
             best['path'] = p
