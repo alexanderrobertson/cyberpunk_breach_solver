@@ -91,9 +91,33 @@ class Puzzle:
 
         return fig
 
-    def plot_solution(self, display=True):
+    def plot_solution(self):
 
-        pass
+
+        coords = [[[r, c] for c, v2 in enumerate(v1)] for r, v1 in enumerate(self.grid_as_array)]
+        coords = np.rot90(coords).reshape(-1, 2)
+
+        pos = {n: p for n, p in zip(self.graph.nodes(), coords)}
+
+        f, a = plt.subplots(ncols=1, nrows=1, figsize=(3, 3))
+
+
+        nx.draw_networkx_nodes(self.graph, pos=pos, ax=a, node_size=200, node_shape='s');
+        nx.draw_networkx_labels(self.graph, pos=pos, ax=a, labels={i: self.graph.nodes[i]['label'] for i in self.graph.nodes});
+
+        if self.solution:
+            solution_route = [(pos[x],pos[y]) for x,y in zip(self.solution['path'], self.solution['path'][1:])]
+            for (x,y) in solution_route:
+                a.annotate("", xy=x,
+                            xytext=y,
+                            arrowprops=dict(arrowstyle="<-",
+                                            shrinkA=5, shrinkB=5,
+                                            connectionstyle="arc3,rad=0.2"),
+                            );
+
+        plt.tight_layout()
+
+        return f
 
     def __repr__(self):
         g = '\n\t'.join([' '.join(v for v in r) for r in self.grid_as_array])

@@ -62,6 +62,7 @@ def score_solutions(graph, target_paths, solutions):
             best['path'] = p
             best['score'] = score
             best['sequence'] = path_to_sequence(graph, p)
+            best['readable_path'] = [f"{c}:{x + 1}-{y + 1}" for c, (x, y) in zip(best['sequence'], p)]
             best['matched'] = [e for e, m in enumerate(matches, 1) if m]
             break
 
@@ -69,6 +70,7 @@ def score_solutions(graph, target_paths, solutions):
             best['path'] = p
             best['score'] = score
             best['sequence'] = path_to_sequence(graph, p)
+            best['readable_path'] = [f"{c}:{x + 1}-{y + 1}" for c, (x, y) in zip(best['sequence'], p)]
             best['matched'] = [e for e, m in enumerate(matches, 1) if m]
 
     if best['path']:
@@ -82,11 +84,15 @@ def solve(puzzle):
 
         try:
             fp = Path(f'solver/data/{puzzle.buffer_size}.dill')
+
+            with open(fp, 'rb') as fp:
+                all_paths = dill.load(fp)
         except FileNotFoundError:
             fp = Path(f'data/{puzzle.buffer_size}.dill')
 
-        with open(fp, 'rb') as fp:
-            all_paths = dill.load(fp)
+            with open(fp, 'rb') as fp:
+                all_paths = dill.load(fp)
+
         all_paths = filter_found_paths(all_paths)
 
     else:

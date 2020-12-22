@@ -11,7 +11,7 @@ app = flask.Flask(__name__)
 def index():
 
     if flask.request.method == 'GET':
-        return flask.render_template('main.html')
+        return flask.render_template('main.html', data='empty')
 
     if flask.request.method == 'POST':
 
@@ -20,11 +20,9 @@ def index():
                           targets=flask.request.form['targets'],
                           buffer_size=int(flask.request.form['buffer']))
 
-        print(p)
+        data = p.solution
 
-        data = p
-
-        fig = p.plot_graph(display=False)
+        fig = p.plot_solution()
 
         as_png = io.BytesIO()
         FigureCanvas(fig).print_png(as_png)
